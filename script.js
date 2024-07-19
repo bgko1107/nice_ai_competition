@@ -30,6 +30,20 @@ $(document).ready(function() {
 		displayFileNames();
 	});
 
+	$('#toggle-theme').click(function() {
+		$('body').toggleClass('dark-mode light-mode');
+
+		if($('body').hasClass("dark-mode")){
+			$("#toggle-theme").text("라이트모드");
+			$("#toggle-theme").css("background-color","#ffffff");
+			$("#toggle-theme").css("color","#2c3e50");
+		}else{
+			$("#toggle-theme").text("다크모드");
+			$("#toggle-theme").css("background-color","#2c3e50");
+			$("#toggle-theme").css("color","#ffffff");
+		}
+	});
+
 });
 
 // 파일 이름 표시 함수
@@ -283,7 +297,7 @@ function messageList() {
 					lastMessage = message.content[0].text.value;
 					removeTypingIndicator();
 					addMessage(message.content[0].text.value, 'received');
-					// speakText();
+					speakText();
 					// generateVideo();
 				}
 			}
