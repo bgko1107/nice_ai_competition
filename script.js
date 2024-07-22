@@ -1,7 +1,9 @@
 
 
 var apiKey = "sk-proj-VXzXXzyJ0yzazCLfzGqjT3BlbkFJuUk53sNPA3xyCvjGSoRs";
-var assistantId = "asst_cWYyi37N1hY4MBo9rl1dmd0e";
+// zinidata1 : asst_cWYyi37N1hY4MBo9rl1dmd0e
+// zinidata5 : asst_QaA1zRtzLRrtTcPtKAsACmS1
+var assistantId = "asst_QaA1zRtzLRrtTcPtKAsACmS1";
 var threadId = "";
 var lastMessage = "";
 var elevenApiKey = 'sk_24da0da1c487719c1a6002693933baa38fc43e900fc25456';
