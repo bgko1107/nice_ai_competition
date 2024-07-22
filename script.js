@@ -301,7 +301,7 @@ function messageList() {
 					removeTypingIndicator();
 					addMessage(message.content[0].text.value, 'received');
 					speakText();
-					generateVideo();
+					// generateVideo();
 				}
 			}
 		},
