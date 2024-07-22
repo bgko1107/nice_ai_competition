@@ -1,9 +1,11 @@
 
 
 var apiKey = "sk-proj-VXzXXzyJ0yzazCLfzGqjT3BlbkFJuUk53sNPA3xyCvjGSoRs";
-var assistantId = "asst_uIhB31KCR111lm0VBUCMhb0g";
+var assistantId = "asst_cWYyi37N1hY4MBo9rl1dmd0e";
 var threadId = "";
 var lastMessage = "";
+var elevenApiKey = 'sk_24da0da1c487719c1a6002693933baa38fc43e900fc25456';
+var elevenVoiceId = 'isHvq7WnwQY2e8dQDwGR';
 var heygenApiKey = "ZGQwMjQwOWJlYzA5NDk1MTkwNmU0YzQwZjM5Y2Y5N2UtMTcyMTI3ODg0OA==";
 var heygenVideoId = "";
 let fileIds;
@@ -115,6 +117,62 @@ function sendMessage() {
 	removeAllFiles();
 }
 
+// 대화 입력중 모양 표시
+function addTypingIndicator() {
+	const typingIndicator = $('<div></div>').addClass('message received typing-indicator').html('<span></span><span></span><span></span>');
+	$('.messages-wrapper').append(typingIndicator);
+	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
+}
+
+// 대화 입력중 모양 제거
+function removeTypingIndicator() {
+	$('.typing-indicator').remove();
+}
+
+// 스레드 생성
+function createThread() {
+	$.ajax({
+		url: "https://api.openai.com/v1/threads",
+		type: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer " + apiKey,
+			"OpenAI-Beta": "assistants=v2"
+		},
+		data: '{}',
+		success: function(response) {
+			threadId = response.id;
+		},
+		error: function(xhr, status, error) {
+			console.error("Error creating thread:", error);
+		}
+	});
+}
+
+// 메시지 스레드로 전송
+function sendMessageToThread(message) {
+	var url = "https://api.openai.com/v1/threads/" + threadId + "/messages";
+	$.ajax({
+		url: url,
+		type: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": "Bearer " + apiKey,
+			"OpenAI-Beta": "assistants=v2"
+		},
+		data: JSON.stringify({
+			"role": "user",
+			"content": message,
+		}),
+		success: function(response) {
+			createRun();
+		},
+		error: function(xhr, status, error) {
+			console.error("Error sending message:", error);
+		}
+	});
+}
+
 // 첨부파일 업로드
 async function uploadFiles(files) {
 	const uploadedFiles = [];
@@ -169,62 +227,6 @@ async function sendMessageWithFiles(files, message) {
 		},
 		error: function(xhr, status, error) {
 			console.error("Error sending message with files:", xhr.responseText, status, error);
-		}
-	});
-}
-
-// 대화 입력중 모양 표시
-function addTypingIndicator() {
-	const typingIndicator = $('<div></div>').addClass('message received typing-indicator').html('<span></span><span></span><span></span>');
-	$('.messages-wrapper').append(typingIndicator);
-	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
-}
-
-// 대화 입력중 모양 제거
-function removeTypingIndicator() {
-	$('.typing-indicator').remove();
-}
-
-// 스레드 생성
-function createThread() {
-	$.ajax({
-		url: "https://api.openai.com/v1/threads",
-		type: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Authorization": "Bearer " + apiKey,
-			"OpenAI-Beta": "assistants=v2"
-		},
-		data: '{}',
-		success: function(response) {
-			threadId = response.id;
-		},
-		error: function(xhr, status, error) {
-			console.error("Error creating thread:", error);
-		}
-	});
-}
-
-// 메시지 스레드로 전송
-function sendMessageToThread(message) {
-	var url = "https://api.openai.com/v1/threads/" + threadId + "/messages";
-	$.ajax({
-		url: url,
-		type: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Authorization": "Bearer " + apiKey,
-			"OpenAI-Beta": "assistants=v2"
-		},
-		data: JSON.stringify({
-			"role": "user",
-			"content": message,
-		}),
-		success: function(response) {
-			createRun();
-		},
-		error: function(xhr, status, error) {
-			console.error("Error sending message:", error);
 		}
 	});
 }
@@ -290,6 +292,7 @@ function messageList() {
 			'OpenAI-Beta': 'assistants=v2'
 		},
 		success: function(response) {
+			// 마지막 메시지만 출력(전체 메시지 내용이 다 있음)
 			var message = response.data[0];
 			if (message.role === "assistant") {
 				if (message.content[0].type === "text") {
@@ -298,7 +301,7 @@ function messageList() {
 					removeTypingIndicator();
 					addMessage(message.content[0].text.value, 'received');
 					speakText();
-					// generateVideo();
+					generateVideo();
 				}
 			}
 		},
@@ -308,8 +311,7 @@ function messageList() {
 	});
 }
 
-
-// 엔터 테그로 변경
+// 엔터 테그로 변경 ( 내용 보기 예쁘게 하기 위함 )
 function replaceTag(text){
 	text = text.replace(/\r\n/g, '<br/>');
 	text = text.replace(/\n/g, '<br/>');
@@ -317,7 +319,7 @@ function replaceTag(text){
 	return text;
 }
 
-// 받아온 메시지 출력
+// 받아온 메시지 출력 (text)
 function addMessage(text, type) {
 	var html = replaceTag(text);
 	const messageElement = $('<div></div>').addClass('message').addClass(type).html(html);
@@ -326,14 +328,12 @@ function addMessage(text, type) {
 }
 
 
-// 음성 출력 api
+// 음성 출력 api(음성)
 function speakText() {
 
 	addTypingIndicator(); // 타이핑 인디케이터 추가
 
 	var text = lastMessage;
-	var apiKey = 'sk_24da0da1c487719c1a6002693933baa38fc43e900fc25456';
-	var voiceId = 'isHvq7WnwQY2e8dQDwGR';
 
 	var payload = {
 		text: text,
@@ -344,10 +344,10 @@ function speakText() {
 	};
 
 	$.ajax({
-		url: 'https://api.elevenlabs.io/v1/text-to-speech/' + voiceId,
+		url: 'https://api.elevenlabs.io/v1/text-to-speech/' + elevenVoiceId,
 		method: 'POST',
 		headers: {
-			'xi-api-key': apiKey,
+			'xi-api-key': elevenApiKey,
 			'Content-Type': 'application/json'
 		},
 		data: JSON.stringify(payload),
@@ -395,7 +395,7 @@ function speakText() {
 	});
 }*/
 
-// 영상 생성
+// 영상 생성 (video)
 function generateVideo() {
 	addTypingIndicator(); // 타이핑 인디케이터 추가
 	var text = lastMessage;
@@ -404,7 +404,7 @@ function generateVideo() {
 		headers: {
 			accept: 'application/json',
 			'content-type': 'application/json',
-			'x-api-key': heygenApiKey // Replace with your actual API key
+			'x-api-key': heygenApiKey
 		},
 		body: JSON.stringify({
 			test: true,
@@ -416,7 +416,7 @@ function generateVideo() {
 				{
 					character: {
 						type: 'talking_photo',
-						talking_photo_id: 'e94e3a6f3cb34a94b9272057f01e71d4', // Replace with your talking photo ID
+						talking_photo_id: 'e94e3a6f3cb34a94b9272057f01e71d4',
 						scale: 1,
 						talking_photo_style: 'square',
 						talking_style: 'stable', // Default value
@@ -425,11 +425,11 @@ function generateVideo() {
 					},
 					voice: {
 						type: 'text',
-						voice_id: 'df393bed984b4a0a84466386b5ff8052', // Replace with your voice ID
+						voice_id: 'df393bed984b4a0a84466386b5ff8052',
 						input_text: text,
 						speed: 1.0,
 						pitch: 0,
-						emotion: 'Friendly' // Replace with desired emotion if supported
+						emotion: 'Friendly'
 					},
 					background: {
 						type: 'color',
@@ -448,6 +448,7 @@ function generateVideo() {
 		dataType: 'json',
 		success: function(response) {
 			if (response.data.video_id) {
+				// 새로만든 videoId
 				heygenVideoId = response.data.video_id;
 				getVideo();
 			} else {
@@ -462,7 +463,7 @@ function generateVideo() {
 
 // 영상 정보 가져오기
 function getVideo() {
-	// 임시로 만들어져 있는거 가져오기
+	// 임시로 만들어져 있는거 가져오기 ( 원래는 삭제 )
 	heygenVideoId = "e567e85c08674111a86f487d14018356";
 
 	const options = {
