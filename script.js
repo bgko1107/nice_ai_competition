@@ -1,9 +1,9 @@
 
 
-var apiKey = "sk-proj-VXzXXzyJ0yzazCLfzGqjT3BlbkFJuUk53sNPA3xyCvjGSoRs";
+var apiKey = "sk-proj-qUOhamuyA91rj1NL32ZOT3BlbkFJsMypiSrnntoUnFcEBXaa";
 // zinidata1 : asst_cWYyi37N1hY4MBo9rl1dmd0e
 // zinidata5 : asst_QaA1zRtzLRrtTcPtKAsACmS1
-var assistantId = "asst_QaA1zRtzLRrtTcPtKAsACmS1";
+var assistantId = "asst_vsqugc622KXhJ08mscEkpct8";
 var threadId = "";
 var lastMessage = "";
 var elevenApiKey = 'sk_24da0da1c487719c1a6002693933baa38fc43e900fc25456';
@@ -298,12 +298,10 @@ function messageList() {
 			var message = response.data[0];
 			if (message.role === "assistant") {
 				if (message.content[0].type === "text") {
-					console.log(message.content[0].text.value);
 					lastMessage = message.content[0].text.value;
-					removeTypingIndicator();
-					addMessage(message.content[0].text.value, 'received');
-					speakText();
-					// generateVideo();
+					// speakText();
+					generateVideo();
+					// getVideo();
 				}
 			}
 		},
@@ -323,8 +321,14 @@ function replaceTag(text){
 
 // 받아온 메시지 출력 (text)
 function addMessage(text, type) {
-	var html = replaceTag(text);
-	const messageElement = $('<div></div>').addClass('message').addClass(type).html(html);
+
+	let message = replaceTag(text);
+	let messageElement = "";
+	if(type=="received"){
+		messageElement = $('<div></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+	}else{
+		messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
+	}
 	$('.messages-wrapper').append(messageElement);
 	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
 }
@@ -399,6 +403,8 @@ function speakText() {
 
 // 영상 생성 (video)
 function generateVideo() {
+	console.log(lastMessage);
+
 	addTypingIndicator(); // 타이핑 인디케이터 추가
 	var text = lastMessage;
 	const options = {
@@ -466,7 +472,7 @@ function generateVideo() {
 // 영상 정보 가져오기
 function getVideo() {
 	// 임시로 만들어져 있는거 가져오기 ( 원래는 삭제 )
-	heygenVideoId = "e567e85c08674111a86f487d14018356";
+	// heygenVideoId = "e567e85c08674111a86f487d14018356";
 
 	const options = {
 		method: 'GET',
@@ -495,12 +501,38 @@ function getVideo() {
 
 // 메시지 창에 영상 출력
 function showGeneratedVideo(videoUrl) {
-	var length = $('.generated-video.received').length;
-	var html = '<video class="generated-video received_' +length+ '" controls autoPlay></video>';
+	$('.generated-video').each(function() {
+		this.pause();
+		this.currentTime = 0;
+		$(this).css("width", "300px").css("height", "300px");
+		$(".message.received").css("width", "");
+		$(".message.received").css("max-width", "70%");
+	});
+
+	var length = $('.generated-video').length;
+	var html = '<video class="generated-video received_' + length + '" controls autoPlay></video>';
 
 	$('.messages-wrapper').append(html);
 	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
-	$('.generated-video.received_' +length).attr('src', videoUrl);
+	var videoElement = $('.generated-video.received_' + length).get(0);
+
+	removeTypingIndicator();
+	addMessage(lastMessage, 'received');
+
+	$(".message.received").eq($(".message.received").length-1).css("width","100%");
+	$(".message.received").eq($(".message.received").length-1).css("max-width","97%");
+
+
+	videoElement.src = videoUrl;
+	videoElement.addEventListener('ended', function() {
+		videoElement.style.width = '300px';
+		videoElement.style.height = '300px';
+		$(".message.received").css("width", "");
+		$(".message.received").css("max-width", "70%");
+	});
+
+
 }
+
 
 
