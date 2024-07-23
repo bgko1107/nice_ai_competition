@@ -329,7 +329,7 @@ function addMessage(text, type) {
 	let message = replaceTag(text);
 	let messageElement = "";
 	if(type=="received"){
-		messageElement = $('<div></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+		messageElement = $('<div style="height: 200px; overflow-y: auto;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
 	}else{
 		messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
 	}
@@ -477,8 +477,9 @@ function generateVideo() {
 // 영상 정보 가져오기
 function getVideo() {
 	// 임시로 만들어져 있는거 가져오기 ( 원래는 삭제 )
-	// 81dc4a5c2ffe4e9e8a39cacc2f74fc3c 긴영상
-	heygenVideoId = "81dc4a5c2ffe4e9e8a39cacc2f74fc3c";
+	// 81dc4a5c2ffe4e9e8a39cacc2f74fc3c 2m55s
+	// e21d20332d224bfe8aa4cc67671d94d7 24s
+	heygenVideoId = "e21d20332d224bfe8aa4cc67671d94d7";
 
 	const options = {
 		method: 'GET',
