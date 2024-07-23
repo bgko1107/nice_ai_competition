@@ -299,9 +299,13 @@ function messageList() {
 			if (message.role === "assistant") {
 				if (message.content[0].type === "text") {
 					lastMessage = message.content[0].text.value;
-					// speakText();
-					generateVideo();
-					// getVideo();
+
+					if(lastMessage.length > 100){
+						speakText();
+					}else{
+						// generateVideo();
+						getVideo();
+					}
 				}
 			}
 		},
@@ -375,6 +379,7 @@ function speakText() {
 			$('.audio-output.received.audio_' + length).attr('src', audioURL);
 
 			removeTypingIndicator(); // 타이핑 인디케이터 제거
+			addMessage(lastMessage, 'received');
 		},
 		error: function(xhr, status, error) {
 			console.error('Error:', error);
@@ -472,7 +477,8 @@ function generateVideo() {
 // 영상 정보 가져오기
 function getVideo() {
 	// 임시로 만들어져 있는거 가져오기 ( 원래는 삭제 )
-	// heygenVideoId = "e567e85c08674111a86f487d14018356";
+	// 81dc4a5c2ffe4e9e8a39cacc2f74fc3c 긴영상
+	heygenVideoId = "81dc4a5c2ffe4e9e8a39cacc2f74fc3c";
 
 	const options = {
 		method: 'GET',
