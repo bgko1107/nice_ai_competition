@@ -1,15 +1,15 @@
 
 
-var apiKey = "sk-proj-qyaUUX3Av1fXLow3hWy4T3BlbkFJIt4oW4bgTj86DM6rYPAP";
-// zinidata1 : asst_cWYyi37N1hY4MBo9rl1dmd0e
-// zinidata5 : asst_QaA1zRtzLRrtTcPtKAsACmS1
-var assistantId = "asst_vsqugc622KXhJ08mscEkpct8";
+var apiKey = "";
+var assistantId = "";
 var threadId = "";
 var lastMessage = "";
-var elevenApiKey = 'sk_24da0da1c487719c1a6002693933baa38fc43e900fc25456';
-var elevenVoiceId = 'isHvq7WnwQY2e8dQDwGR';
-var heygenApiKey = "ZGQwMjQwOWJlYzA5NDk1MTkwNmU0YzQwZjM5Y2Y5N2UtMTcyMTI3ODg0OA==";
+var elevenApiKey = '';
+var elevenVoiceId = '';
+var heygenApiKey = "";
 var heygenVideoId = "";
+var heygenTalkingPhotoId= "";
+var heygenElevenVoiceId= "";
 let fileIds;
 
 $(document).ready(function() {
@@ -429,7 +429,7 @@ function generateVideo() {
 				{
 					character: {
 						type: 'talking_photo',
-						talking_photo_id: 'e94e3a6f3cb34a94b9272057f01e71d4',
+						talking_photo_id: heygenTalkingPhotoId,
 						scale: 1,
 						talking_photo_style: 'square',
 						talking_style: 'stable', // Default value
@@ -438,7 +438,7 @@ function generateVideo() {
 					},
 					voice: {
 						type: 'text',
-						voice_id: 'df393bed984b4a0a84466386b5ff8052',
+						voice_id: heygenElevenVoiceId,
 						input_text: text,
 						speed: 1.0,
 						pitch: 0,
@@ -479,7 +479,6 @@ function getVideo() {
 	// 임시로 만들어져 있는거 가져오기 ( 원래는 삭제 )
 	// 81dc4a5c2ffe4e9e8a39cacc2f74fc3c 2m55s
 	// e21d20332d224bfe8aa4cc67671d94d7 24s
-	heygenVideoId = "e21d20332d224bfe8aa4cc67671d94d7";
 
 	const options = {
 		method: 'GET',
