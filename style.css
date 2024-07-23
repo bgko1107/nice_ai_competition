@@ -238,9 +238,36 @@ body.dark-mode .file-name {
 }
 
 .toggle-container {
-	text-align: right;
-	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* Align input to the left and button to the right */
+	gap: 10px;
+	width: 98%;
+	margin-top: 20px;
+	margin-right: 20px;
+	margin-left: 20px;
 }
+#api_key {
+	flex: 0 1 300px; /* Allow the input field to be smaller */
+	text-align: left; /* Ensures text is left-aligned */
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.submit-button {
+	flex: 0 0 auto; /* Keep the button size consistent */
+	padding: 10px;
+	background-color: #0081ff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	color: #ffffff;
+	font-weight: bold;
+	outline: none;
+	transition: background-color 0.3s, color 0.3s;
+}
+
 .toggle-button {
 	padding: 10px 20px;
 	background-color: #2c3e50;
@@ -251,6 +278,7 @@ body.dark-mode .file-name {
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
+	margin-left: auto; /* Align to the right */
 }
 
 .generated-video {

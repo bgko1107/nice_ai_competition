@@ -13,8 +13,48 @@ var heygenElevenVoiceId= "";
 let fileIds;
 
 $(document).ready(function() {
-	// 스레드 생성
-	createThread();
+	const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
+
+	$.get(keyFileUrl, function(data) {
+		// Parse the content
+		const lines = data.split('\n');
+		const config = {};
+
+		lines.forEach(line => {
+			if (line.trim()) {
+				const [key, value] = line.split('=').map(part => part.trim().replace(/['";]+/g, ''));
+				config[key] = value;
+			}
+		});
+
+		assistantId = config.assistantId;
+		elevenApiKey = config.elevenApiKey;
+		elevenVoiceId = config.elevenVoiceId;
+		heygenApiKey = config.heygenApiKey;
+		heygenVideoId = config.heygenVideoId;
+		heygenTalkingPhotoId = config.heygenTalkingPhotoId;
+		heygenElevenVoiceId = config.heygenElevenVoiceId;
+
+		// 스레드 생성
+		// createThread();
+
+		alert('api key 입력해주세요');
+
+	}).fail(function() {
+		alert('Failed to load the file.');
+	});
+
+	$("#api_key_btn").on('click', function (){
+		if($("#api_key").val().length > 0){
+			apiKey = $("#api_key").val();
+			$("#api_key").remove();
+			$("#api_key_btn").remove();
+			createThread();
+		}else{
+			alert('api key 를 입력해주세요.');
+		}
+	});
+
 
 	$('#message-input').keypress(function(event) {
 		if (event.key === 'Enter') {
