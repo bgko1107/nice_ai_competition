@@ -340,7 +340,7 @@ function messageList() {
 				if (message.content[0].type === "text") {
 					lastMessage = message.content[0].text.value;
 
-					if(lastMessage.length > 100){
+					if(lastMessage.length > 200){
 						speakText();
 					}else{
 						// generateVideo();
@@ -420,6 +420,7 @@ function speakText() {
 
 			removeTypingIndicator(); // 타이핑 인디케이터 제거
 			addMessage(lastMessage, 'received');
+			$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("overflow-y", "");
 		},
 		error: function(xhr, status, error) {
 			console.error('Error:', error);
