@@ -1,6 +1,6 @@
 
 
-var apiKey = "sk-proj-qUOhamuyA91rj1NL32ZOT3BlbkFJsMypiSrnntoUnFcEBXaa";
+var apiKey = "sk-proj-qyaUUX3Av1fXLow3hWy4T3BlbkFJIt4oW4bgTj86DM6rYPAP";
 // zinidata1 : asst_cWYyi37N1hY4MBo9rl1dmd0e
 // zinidata5 : asst_QaA1zRtzLRrtTcPtKAsACmS1
 var assistantId = "asst_vsqugc622KXhJ08mscEkpct8";
