@@ -30,7 +30,7 @@ $(document).ready(function() {
 		assistantId = config.assistantId;
 		elevenApiKey = config.elevenApiKey;
 		elevenVoiceId = config.elevenVoiceId;
-		heygenApiKey = config.heygenApiKey;
+		heygenApiKey = config.heygenApiKey + "==";
 		heygenVideoId = config.heygenVideoId;
 		heygenTalkingPhotoId = config.heygenTalkingPhotoId;
 		heygenElevenVoiceId = config.heygenElevenVoiceId;
