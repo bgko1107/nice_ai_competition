@@ -1,21 +1,25 @@
 
 
 var apiKey = "";
-var assistantId = "";
 var threadId = "";
 var lastMessage = "";
 var elevenApiKey = '';
-var elevenVoiceId = '';
 var heygenApiKey = "";
-var heygenVideoId = "";
-var heygenTalkingPhotoId= "";
-var heygenElevenVoiceId= "";
+
+var assistantId= "asst_vsqugc622KXhJ08mscEkpct8";
+var elevenVoiceId= 'isHvq7WnwQY2e8dQDwGR';
+var heygenVideoId= "44102a1398b5451ab197e396ba71767b";
+var heygenTalkingPhotoId= "44102a1398b5451ab197e396ba71767b";
+var heygenElevenVoiceId= "df393bed984b4a0a84466386b5ff8052";
+
+
 let fileIds;
 
 let sendMessages ="";
 
 $(document).ready(function() {
-	const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
+	alert('api key 입력해주세요');
+	/*const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
 
 	$.get(keyFileUrl, function(data) {
 		// Parse the content
@@ -38,11 +42,10 @@ $(document).ready(function() {
 		// 스레드 생성
 		// createThread();
 
-		alert('api key 입력해주세요');
 
 	}).fail(function() {
 		alert('Failed to load the file.');
-	});
+	});*/
 
 	$("#api_key_btn").on('click', function (){
 		if($("#api_key").val().length > 0){
@@ -441,7 +444,7 @@ function speakText() {
 }
 
 // 아바타 목록을 가져오기 위한 함수 예시
-/*function fetchAvatars() {
+function fetchAvatars() {
 	$.ajax({
 		url: 'https://api.heygen.com/v2/avatars',
 		method: 'GET',
@@ -457,7 +460,7 @@ function speakText() {
 			console.error('Error fetching avatars:', err);
 		}
 	});
-}*/
+}
 
 // 영상 생성 (video)
 function generateVideo() {
