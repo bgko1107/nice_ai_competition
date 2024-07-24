@@ -51,16 +51,25 @@ body.dark-mode {
 	box-sizing: border-box;
 }
 
-#ceo_img {
+
+#ceo_img, #ceo_video {
+	height: 581px;
 	margin-bottom: 20px;
 	text-align: center; /* Center align image */
 }
 
 #ceo_img img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 12px;
+	height: 100%;
+	width: auto; /* Maintain aspect ratio */
 }
+
+#ceo_video {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f1f1f1; /* Optional: to visualize the video area */
+}
+
 
 .chat-container {
 	flex-grow: 1;

@@ -378,7 +378,7 @@ function addMessage(text, type) {
 	let message = replaceTag(text);
 	let messageElement = "";
 	if(type=="received"){
-		messageElement = $('<div></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+		messageElement = $('<div style="display: none;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
 		// leftMessage(messageElement);
 	}else{
 		messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
@@ -577,7 +577,7 @@ function showGeneratedVideo(videoUrl) {
 	var length = $('.generated-video').length;
 	var html = '<video class="generated-video received_' + length + '" controls autoPlay></video>';
 
-	$('.right-messages-wrapper').append(html);
+	$('#ceo_video').html(html);
 	$('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 	var videoElement = $('.generated-video.received_' + length).get(0);
 
@@ -589,11 +589,13 @@ function showGeneratedVideo(videoUrl) {
 
 
 	videoElement.src = videoUrl;
-	/*videoElement.addEventListener('ended', function() {
-		videoElement.style.width = '300px';
-		videoElement.style.height = '300px';
-		$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
-	});*/
+
+
+	$('#ceo_img').hide();
+	videoElement.addEventListener('ended', function() {
+		$('#ceo_img').show();
+		$('#ceo_video').hide();
+	});
 }
 
 
