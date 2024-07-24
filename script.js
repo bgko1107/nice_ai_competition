@@ -578,6 +578,7 @@ function showGeneratedVideo(videoUrl) {
 	var html = '<video class="generated-video received_' + length + '" controls autoPlay></video>';
 
 	$('#ceo_video').html(html);
+	$('#ceo_video').show()
 	$('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 	var videoElement = $('.generated-video.received_' + length).get(0);
 
