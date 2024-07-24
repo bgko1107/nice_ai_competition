@@ -12,6 +12,8 @@ var heygenTalkingPhotoId= "";
 var heygenElevenVoiceId= "";
 let fileIds;
 
+let sendMessages ="";
+
 $(document).ready(function() {
 	const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
 
@@ -140,19 +142,26 @@ function removeAllFiles() {
 function sendMessage() {
 	const input = $('#message-input');
 	const fileInput = $('#file-input')[0];
-	const message = input.val();
-	if (message.trim() !== '' || fileInput.files.length > 0) {
-		addMessage(message, 'sent');
-		input.val('');
-		input.focus();
-		addTypingIndicator();
+	sendMessages = input.val();
 
-		if (fileInput.files.length > 0) {
-			// 파일 첨부
-			sendMessageWithFiles(fileInput.files, message);
-		} else {
-			// 파일 첨부 x
-			sendMessageToThread(message);
+	console.log(sendMessages.trim().indexOf("영상으로"));
+	if(sendMessages.trim().indexOf("영상으로") > -1){
+		// generateVideo();
+		getVideo();
+	}else{
+		if (sendMessages.trim() !== '' || fileInput.files.length > 0) {
+			addMessage(sendMessages, 'sent');
+			input.val('');
+			input.focus();
+			addTypingIndicator();
+
+			if (fileInput.files.length > 0) {
+				// 파일 첨부
+				sendMessageWithFiles(fileInput.files, sendMessages);
+			} else {
+				// 파일 첨부 x
+				sendMessageToThread(sendMessages);
+			}
 		}
 	}
 
@@ -339,13 +348,7 @@ function messageList() {
 			if (message.role === "assistant") {
 				if (message.content[0].type === "text") {
 					lastMessage = message.content[0].text.value;
-
-					if(lastMessage.length > 200){
-						speakText();
-					}else{
-						// generateVideo();
-						getVideo();
-					}
+					speakText();
 				}
 			}
 		},
@@ -369,7 +372,7 @@ function addMessage(text, type) {
 	let message = replaceTag(text);
 	let messageElement = "";
 	if(type=="received"){
-		messageElement = $('<div style="height: 200px; overflow-y: auto;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+		messageElement = $('<div style="min-height:170px;height: 300px; overflow-y: auto;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
 	}else{
 		messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
 	}
@@ -420,7 +423,7 @@ function speakText() {
 
 			removeTypingIndicator(); // 타이핑 인디케이터 제거
 			addMessage(lastMessage, 'received');
-			$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("overflow-y", "");
+			$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
 		},
 		error: function(xhr, status, error) {
 			console.error('Error:', error);
@@ -548,27 +551,19 @@ function getVideo() {
 
 // 메시지 창에 영상 출력
 function showGeneratedVideo(videoUrl) {
-	/*lastMessage = "저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
-		"\n" +
-		"저는 사람들과 협력하여 일하는 것을 좋아하고, 서로 소통하며 문제를 해결하는 과정에 큰 보람을 느낍니다. 또한, 새로운 기술을 배우는 데 적극적이며, 끊임없이 발전하려는 자세를 가지고 있습니다.\n" +
-		"\n" +
-		"저는 나이스 지니데이타의 소프트웨어 개발 직무에 지원하게 된 이유는, 저의 기술과 경험을 바탕으로 회사의 성장에 기여하고 싶기 때문입니다. 특히, (회사의 서비스 또는 사업 분야에 대한 관심과 지원 직무와의 관련성을 구체적으로 기술) 분야에 대한 저의 관심과 경험을 바탕으로, (구체적인 역량 및 기여 가능성을 제시) 하고 싶습니다.\n" +
-		"\n" +
-		"저는 빠르게 배우고 적응하는 능력이 뛰어나며, 긍정적이고 협조적인 성격을 가지고 있습니다. 저에게 기회를 주신다면, 최선을 다해 회사에 기여하겠습니다." +
-		"\n" +
-		"저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
-		"\n" +
-		"저는 사람들과 협력하여 일하는 것을 좋아하고, 서로 소통하며 문제를 해결하는 과정에 큰 보람을 느낍니다. 또한, 새로운 기술을 배우는 데 적극적이며, 끊임없이 발전하려는 자세를 가지고 있습니다.\n" +
-		"\n" +
-		"저는 나이스 지니데이타의 소프트웨어 개발 직무에 지원하게 된 이유는, 저의 기술과 경험을 바탕으로 회사의 성장에 기여하고 싶기 때문입니다. 특히, (회사의 서비스 또는 사업 분야에 대한 관심과 지원 직무와의 관련성을 구체적으로 기술) 분야에 대한 저의 관심과 경험을 바탕으로, (구체적인 역량 및 기여 가능성을 제시) 하고 싶습니다.\n" +
-		"\n" +
-		"저는 빠르게 배우고 적응하는 능력이 뛰어나며, 긍정적이고 협조적인 성격을 가지고 있습니다. 저에게 기회를 주신다면, 최선을 다해 회사에 기여하겠습니다."*/
+	// lastMessage = "저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
+	// 	"저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
+	// 	"\n" +
+	// 	"저는 사람들과 협력하여 일하는 것을 좋아하고, 서로 소통하며 문제를 해결하는 과정에 큰 보람을 느낍니다. 또한, 새로운 기술을 배우는 데 적극적이며, 끊임없이 발전하려는 자세를 가지고 있습니다.\n" +
+	// 	"\n" +
+	// 	"저는 나이스 지니데이타의 소프트웨어 개발 직무에 지원하게 된 이유는, 저의 기술과 경험을 바탕으로 회사의 성장에 기여하고 싶기 때문입니다. 특히, (회사의 서비스 또는 사업 분야에 대한 관심과 지원 직무와의 관련성을 구체적으로 기술) 분야에 대한 저의 관심과 경험을 바탕으로, (구체적인 역량 및 기여 가능성을 제시) 하고 싶습니다.\n" +
+	// 	"\n" +
+	// 	"저는 빠르게 배우고 적응하는 능력이 뛰어나며, 긍정적이고 협조적인 성격을 가지고 있습니다. 저에게 기회를 주신다면, 최선을 다해 회사에 기여하겠습니다."
 	$('.generated-video').each(function() {
 		this.pause();
 		this.currentTime = 0;
-		$(this).css("width", "300px").css("height", "300px");
-		$(".message.received").css("width", "");
-		$(".message.received").css("max-width", "70%");
+		$(this).css("width", "300px").css("height", "400px");
+		$(".message.received").css("width", "").css("max-width", "70%");
 	});
 
 	var length = $('.generated-video').length;
@@ -589,7 +584,7 @@ function showGeneratedVideo(videoUrl) {
 	videoElement.addEventListener('ended', function() {
 		videoElement.style.width = '300px';
 		videoElement.style.height = '300px';
-		$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("overflow-y", "");
+		$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
 	});
 
 
