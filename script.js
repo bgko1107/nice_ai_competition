@@ -30,9 +30,7 @@ $(document).ready(function() {
 		});
 
 		assistantId = config.assistantId;
-		elevenApiKey = config.elevenApiKey;
 		elevenVoiceId = config.elevenVoiceId;
-		heygenApiKey = config.heygenApiKey + "==";
 		heygenVideoId = config.heygenVideoId;
 		heygenTalkingPhotoId = config.heygenTalkingPhotoId;
 		heygenElevenVoiceId = config.heygenElevenVoiceId;
@@ -49,7 +47,12 @@ $(document).ready(function() {
 	$("#api_key_btn").on('click', function (){
 		if($("#api_key").val().length > 0){
 			apiKey = $("#api_key").val();
+			elevenApiKey = $("#eleven_key").val();
+			heygenApiKey = $("#heygen_key").val();
+
 			$("#api_key").remove();
+			$("#eleven_key").remove();
+			$("#heygen_key").remove();
 			$("#api_key_btn").remove();
 			createThread();
 		}else{
@@ -143,8 +146,7 @@ function sendMessage() {
 	const input = $('#message-input');
 	const fileInput = $('#file-input')[0];
 	sendMessages = input.val();
-
-	console.log(sendMessages.trim().indexOf("영상으로"));
+	$('#message-input').val("");
 	if(sendMessages.trim().indexOf("영상으로") > -1){
 		// generateVideo();
 		getVideo();

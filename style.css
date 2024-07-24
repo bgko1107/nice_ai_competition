@@ -247,7 +247,7 @@ body.dark-mode .file-name {
 	margin-right: 20px;
 	margin-left: 20px;
 }
-#api_key {
+.api_key {
 	flex: 0 1 300px; /* Allow the input field to be smaller */
 	text-align: left; /* Ensures text is left-aligned */
 	padding: 5px;
