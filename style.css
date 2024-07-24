@@ -7,13 +7,59 @@ body {
 	height: 100vh;
 	transition: background-color 0.3s, color 0.3s;
 }
+
 body.light-mode {
 	background-color: #ecf0f1; /* Light background */
 	color: #2c3e50; /* Dark text */
 }
+
 body.dark-mode {
 	background-color: #2c3e50; /* Dark background */
 	color: #ecf0f1; /* Light text */
+}
+
+.main-container {
+	display: flex;
+	height: calc(100vh); /* Adjust height considering header or other elements */
+	width: 100%;
+}
+
+.left-container {
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Center align items */
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+
+.radio-container {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	box-sizing: border-box;
+	margin-left: 20px;
+}
+
+.right-container {
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+#ceo_img {
+	margin-bottom: 20px;
+	text-align: center; /* Center align image */
+}
+
+#ceo_img img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 12px;
 }
 
 .chat-container {
@@ -26,9 +72,13 @@ body.dark-mode {
 	background: #ffffff;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 	border-radius: 12px;
-	margin: 20px;
 	height: calc(100vh - 160px);
 	overflow: hidden;
+}
+
+#chat-container1 {
+	/*height: calc(50vh - 160px); !* Reduce height to half *!*/
+	width: 100%;
 }
 
 .messages-wrapper {
@@ -38,6 +88,7 @@ body.dark-mode {
 	flex-direction: column;
 	padding-right: 10px;
 	padding-bottom: 10px;
+	width: 100%;
 }
 
 .message {
@@ -75,15 +126,26 @@ body.dark-mode .message.received {
 .input-container {
 	display: flex;
 	align-items: center;
-	padding: 10px;
-	background-color: #34495e;
-	border-top: 1px solid #2c3e50;
+	padding: 20px;
+	background-color: #ffffff;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	border-radius: 12px;
 	transition: background-color 0.3s, border-color 0.3s;
+	width: 100%;
+	box-sizing: border-box;
+	margin-top:20px
 }
+
 body.light-mode .input-container {
 	background-color: #ffffff;
 	border-top: 1px solid #cccccc;
 }
+
+body.dark-mode .input-container {
+	background-color: #34495e;
+	border-top: 1px solid #2c3e50;
+}
+
 .input-container input[type="text"] {
 	flex: 1;
 	padding: 10px;
@@ -93,11 +155,36 @@ body.light-mode .input-container {
 	outline: none;
 	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
+
 body.dark-mode .input-container input[type="text"] {
 	background-color: #2c3e50;
 	color: #ecf0f1;
 	border-color: #2c3e50;
 }
+
+
+
+body.light-mode .input-container {
+	background-color: #ffffff;
+	border-top: 1px solid #cccccc;
+}
+
+.input-container input[type="text"] {
+	flex: 1;
+	padding: 10px;
+	border: 1px solid #cccccc;
+	border-radius: 25px;
+	margin-right: 10px;
+	outline: none;
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+body.dark-mode .input-container input[type="text"] {
+	background-color: #2c3e50;
+	color: #ecf0f1;
+	border-color: #2c3e50;
+}
+
 .input-container button {
 	padding: 10px 20px;
 	background-color: #007bff;
@@ -109,6 +196,7 @@ body.dark-mode .input-container input[type="text"] {
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
 }
+
 .input-container #file-label {
 	display: flex;
 	align-items: center;
@@ -121,12 +209,15 @@ body.dark-mode .input-container input[type="text"] {
 	margin-right: 10px;
 	transition: background-color 0.3s;
 }
+
 .input-container #file-label i {
 	font-size: 20px;
 }
+
 .input-container #file-input {
 	display: none;
 }
+
 .input-container #speakBtn {
 	margin-left: 10px;
 	padding: 10px;
@@ -158,6 +249,7 @@ body.dark-mode .input-container input[type="text"] {
 	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 	transition: background-color 0.3s, color 0.3s;
 }
+
 body.dark-mode .typing-indicator {
 	background-color: #34495e;
 	color: #ecf0f1;
@@ -203,6 +295,7 @@ body.dark-mode .typing-indicator {
 	gap: 5px;
 	transition: background-color 0.3s;
 }
+
 body.dark-mode .file-names {
 	background-color: #34495e;
 }
@@ -217,11 +310,13 @@ body.dark-mode .file-names {
 	margin-right: 5px; /* 파일 사이의 간격 조절 */
 	transition: background-color 0.3s, border-color 0.3s;
 }
+
 body.dark-mode .file-name {
 	background-color: #2c3e50;
 	border-color: #2c3e50;
 	color: #ecf0f1;
 }
+
 .file-name span {
 	margin-right: 10px;
 }
@@ -247,6 +342,7 @@ body.dark-mode .file-name {
 	margin-right: 20px;
 	margin-left: 20px;
 }
+
 .api_key {
 	flex: 0 1 300px; /* Allow the input field to be smaller */
 	text-align: left; /* Ensures text is left-aligned */
@@ -268,6 +364,48 @@ body.dark-mode .file-name {
 	transition: background-color 0.3s, color 0.3s;
 }
 
+/*.toggle-button {
+	padding: 10px 20px;
+	background-color: #2c3e50;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	color: #ffffff;
+	font-weight: bold;
+	outline: none;
+	transition: background-color 0.3s, color 0.3s;
+	margin-left: auto; !* Align to the right *!
+}*/
+
+.generated-video {
+	width: 100%;
+	height: 70%;
+	transition: width 0.5s, height 0.5s;
+}
+
+
+/*
+.toggle-button {
+	margin: 10px 0;
+	padding: 10px 20px;
+	background-color: #007bff;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	color: #ffffff;
+	font-weight: bold;
+	outline: none;
+	transition: background-color 0.3s, color 0.3s;
+}
+*/
+
+
+.button-container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
 .toggle-button {
 	padding: 10px 20px;
 	background-color: #2c3e50;
@@ -278,11 +416,12 @@ body.dark-mode .file-name {
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
-	margin-left: auto; /* Align to the right */
 }
 
-.generated-video {
-	width: 100%;
-	height: 70%;
-	transition: width 0.5s, height 0.5s;
+#toggle-conversation {
+	margin-right: auto; /* Align to the left */
+}
+
+#toggle-theme {
+	margin-left: auto; /* Align to the right */
 }

@@ -54,6 +54,8 @@ $(document).ready(function() {
 			$("#eleven_key").remove();
 			$("#heygen_key").remove();
 			$("#api_key_btn").remove();
+
+			$("#key").css("margin-top","48px");
 			createThread();
 		}else{
 			alert('api key 를 입력해주세요.');
@@ -173,8 +175,10 @@ function sendMessage() {
 // 대화 입력중 모양 표시
 function addTypingIndicator() {
 	const typingIndicator = $('<div></div>').addClass('message received typing-indicator').html('<span></span><span></span><span></span>');
-	$('.messages-wrapper').append(typingIndicator);
-	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
+	$('.right-messages-wrapper').append(typingIndicator);
+	$('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
+
+	$('.left-messages-wrapper').html(typingIndicator);
 }
 
 // 대화 입력중 모양 제거
@@ -374,19 +378,20 @@ function addMessage(text, type) {
 	let message = replaceTag(text);
 	let messageElement = "";
 	if(type=="received"){
-		messageElement = $('<div style="min-height:170px;height: 300px; overflow-y: auto;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+		messageElement = $('<div></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+		// leftMessage(messageElement);
 	}else{
 		messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
 	}
-	$('.messages-wrapper').append(messageElement);
-	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
-}
+	$('.right-messages-wrapper').append(messageElement);
+	$('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 
+	let length = $(".message.received").length-1;
+	$(".left-messages-wrapper").html($(".message.received_" + length).text());
+}
 
 // 음성 출력 api(음성)
 function speakText() {
-
-	addTypingIndicator(); // 타이핑 인디케이터 추가
 
 	var text = lastMessage;
 
@@ -419,13 +424,15 @@ function speakText() {
 			var audioURL = URL.createObjectURL(response);
 			var length = $('.audio-output.received').length;
 			var html = '<audio class="audio-output received audio_' + length + '" controls autoplay></audio>';
-			$('.messages-wrapper').append(html);
-			$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
+			$('.right-messages-wrapper').append(html);
+			$('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 			$('.audio-output.received.audio_' + length).attr('src', audioURL);
 
 			removeTypingIndicator(); // 타이핑 인디케이터 제거
 			addMessage(lastMessage, 'received');
-			$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
+			// $(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
+
+			$('.audio-output').hide();
 		},
 		error: function(xhr, status, error) {
 			console.error('Error:', error);
@@ -456,7 +463,6 @@ function speakText() {
 function generateVideo() {
 	console.log(lastMessage);
 
-	addTypingIndicator(); // 타이핑 인디케이터 추가
 	var text = lastMessage;
 	const options = {
 		method: 'POST',
@@ -564,33 +570,43 @@ function showGeneratedVideo(videoUrl) {
 	$('.generated-video').each(function() {
 		this.pause();
 		this.currentTime = 0;
-		$(this).css("width", "300px").css("height", "400px");
-		$(".message.received").css("width", "").css("max-width", "70%");
+		// $(this).css("width", "300px").css("height", "400px");
+		// $(".message.received").css("width", "").css("max-width", "70%");
 	});
 
 	var length = $('.generated-video').length;
 	var html = '<video class="generated-video received_' + length + '" controls autoPlay></video>';
 
-	$('.messages-wrapper').append(html);
-	$('.messages-wrapper').scrollTop($('.messages-wrapper')[0].scrollHeight);
+	$('.right-messages-wrapper').append(html);
+	$('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 	var videoElement = $('.generated-video.received_' + length).get(0);
 
 	removeTypingIndicator();
 	addMessage(lastMessage, 'received');
 
-	$(".message.received").eq($(".message.received").length-1).css("width","100%");
-	$(".message.received").eq($(".message.received").length-1).css("max-width","97%");
+	// $(".message.received").eq($(".message.received").length-1).css("width","100%");
+	// $(".message.received").eq($(".message.received").length-1).css("max-width","97%");
 
 
 	videoElement.src = videoUrl;
-	videoElement.addEventListener('ended', function() {
+	/*videoElement.addEventListener('ended', function() {
 		videoElement.style.width = '300px';
 		videoElement.style.height = '300px';
 		$(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
-	});
-
-
+	});*/
 }
 
 
+document.addEventListener('DOMContentLoaded', () => {
+	const toggleButton = document.getElementById('toggle-conversation');
 
+	toggleButton.addEventListener('click', () => {
+		if (toggleButton.textContent == "대화 내용 보기") {
+			$(".message.received").show();
+			toggleButton.textContent = '대화 내용 숨기기';
+		} else {
+			$(".message.received").hide();
+			toggleButton.textContent = '대화 내용 보기';
+		}
+	});
+});
