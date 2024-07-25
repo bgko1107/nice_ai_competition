@@ -389,7 +389,7 @@ function addMessage(text, type) {
     $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 
     let length = $(".message.received").length-1;
-    $(".left-messages-wrapper").html($(".message.received_" + length).text());
+    $(".left-messages-wrapper").html($(".message.received_" + length).html());
 }
 
 // 음성 출력 api(음성)
@@ -591,21 +591,21 @@ function getVideo() {
 
 // 메시지 창에 영상 출력
 function showGeneratedVideo(videoUrl) {
-    // lastMessage = "저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
-    // 	"저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
-    // 	"\n" +
-    // 	"저는 사람들과 협력하여 일하는 것을 좋아하고, 서로 소통하며 문제를 해결하는 과정에 큰 보람을 느낍니다. 또한, 새로운 기술을 배우는 데 적극적이며, 끊임없이 발전하려는 자세를 가지고 있습니다.\n" +
-    // 	"\n" +
-    // 	"저는 나이스 지니데이타의 소프트웨어 개발 직무에 지원하게 된 이유는, 저의 기술과 경험을 바탕으로 회사의 성장에 기여하고 싶기 때문입니다. 특히, (회사의 서비스 또는 사업 분야에 대한 관심과 지원 직무와의 관련성을 구체적으로 기술) 분야에 대한 저의 관심과 경험을 바탕으로, (구체적인 역량 및 기여 가능성을 제시) 하고 싶습니다.\n" +
-    // 	"\n" +
-    // 	"저는 빠르게 배우고 적응하는 능력이 뛰어나며, 긍정적이고 협조적인 성격을 가지고 있습니다. 저에게 기회를 주신다면, 최선을 다해 회사에 기여하겠습니다."
+    /*lastMessage = "저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
+    	"저는 소프트웨어 개발 분야에 2년간의 경력을 가진 고병권입니다. 중앙대학교 소프트웨어개발학과를 졸업하고 2년간 (주)ABC에서 IT 개발 업무를 수행했습니다.\n" +
+    	"\n" +
+    	"저는 사람들과 협력하여 일하는 것을 좋아하고, 서로 소통하며 문제를 해결하는 과정에 큰 보람을 느낍니다. 또한, 새로운 기술을 배우는 데 적극적이며, 끊임없이 발전하려는 자세를 가지고 있습니다.\n" +
+    	"\n" +
+    	"저는 나이스 지니데이타의 소프트웨어 개발 직무에 지원하게 된 이유는, 저의 기술과 경험을 바탕으로 회사의 성장에 기여하고 싶기 때문입니다. 특히, (회사의 서비스 또는 사업 분야에 대한 관심과 지원 직무와의 관련성을 구체적으로 기술) 분야에 대한 저의 관심과 경험을 바탕으로, (구체적인 역량 및 기여 가능성을 제시) 하고 싶습니다.\n" +
+    	"\n" +
+    	"저는 빠르게 배우고 적응하는 능력이 뛰어나며, 긍정적이고 협조적인 성격을 가지고 있습니다. 저에게 기회를 주신다면, 최선을 다해 회사에 기여하겠습니다."*/
     $('.generated-video').each(function() {
         this.pause();
         this.currentTime = 0;
     });
 
     var length = $('.generated-video').length;
-    var html = '<video class="generated-video received_' + length + '" style="height: 185px;" controls autoPlay></video>';
+    var html = '<video class="generated-video received_' + length + '" style="width: 136px;height: 191px;" controls autoPlay></video>';
 
     $('#ceo_video').html(html);
     $('#ceo_video').show()

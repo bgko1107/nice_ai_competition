@@ -25,7 +25,7 @@ body.dark-mode {
 }
 
 .left-container {
-	width: 50%;
+	width: 48%;
 	display: flex;
 	flex-direction: column;
 	align-items: center; /* Center align items */
@@ -43,7 +43,7 @@ body.dark-mode {
 }
 
 .right-container {
-	width: 50%;
+	width: 52%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
@@ -60,7 +60,10 @@ body.dark-mode {
 
 #ceo_img img {
 	height: 100%;
-	width: auto; /* Maintain aspect ratio */
+	width: 100%; /* Maintain aspect ratio */
+	max-width:880px;
+	max-height:541px;
+
 }
 
 #ceo_video {
@@ -124,13 +127,23 @@ body.dark-mode {
 }
 
 body.light-mode .chat-container {
-	background: #ffffff; /* Light chat background */
+	background: #ffffff;
 }
 
 body.dark-mode .message.received {
 	background-color: #34495e;
 	color: #ecf0f1;
 }
+
+body.light-mode #chat-container1 {
+	background: #ffffff;
+}
+
+body.dark-mode #chat-container1 {
+	background-color: #34495e;
+	color: #ecf0f1;
+}
+
 
 .input-container {
 	display: flex;
@@ -440,17 +453,30 @@ body.dark-mode .file-name {
 	width: 100%;
 	height: 559px;
 }
-
+/*
 .position-element {
 	top: 223px;
 	left: 406px;
 	width: 100%;
 	height: 100%;
-}
+}*/
 
-#ceo_video video {
+/*#ceo_video video {
 	width: 100%;
 	height: 100%;
+	object-fit: cover;
+}*/
+
+.position-element {
+	position: absolute;
+	top: 24.5%;
+	left: 48.5%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+}
+
+#ceo_img img, #ceo_video video {
 	object-fit: cover;
 }
 
