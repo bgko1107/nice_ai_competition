@@ -453,3 +453,24 @@ body.dark-mode .file-name {
 	height: 100%;
 	object-fit: cover;
 }
+
+.play-button {
+	padding: 10px;
+	background-color: #007bff;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	color: #ffffff;
+	margin-right: 10px;
+	transition: background-color 0.3s, color 0.3s;
+	width:36px;
+	height:38px;
+}
+
+.play-button i {
+	font-size: 20px;
+}
+
+.play-button:hover {
+	background-color: #0056b3;
+}

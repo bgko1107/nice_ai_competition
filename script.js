@@ -98,6 +98,11 @@ $(document).ready(function() {
         }
     });
 
+    // 영상으로 재생
+    $("#play-video").on('click', function (){
+        // generateVideo();
+        getVideo();
+    });
 });
 
 // 파일 이름 표시 함수
@@ -152,23 +157,18 @@ function sendMessage() {
     const fileInput = $('#file-input')[0];
     sendMessages = input.val();
     $('#message-input').val("");
-    if(sendMessages.trim().indexOf("영상으로") > -1){
-        generateVideo();
-        // getVideo();
-    }else{
-        if (sendMessages.trim() !== '' || fileInput.files.length > 0) {
-            addMessage(sendMessages, 'sent');
-            input.val('');
-            input.focus();
-            addTypingIndicator();
+    if (sendMessages.trim() !== '' || fileInput.files.length > 0) {
+        addMessage(sendMessages, 'sent');
+        input.val('');
+        input.focus();
+        addTypingIndicator();
 
-            if (fileInput.files.length > 0) {
-                // 파일 첨부
-                sendMessageWithFiles(fileInput.files, sendMessages);
-            } else {
-                // 파일 첨부 x
-                sendMessageToThread(sendMessages);
-            }
+        if (fileInput.files.length > 0) {
+            // 파일 첨부
+            sendMessageWithFiles(fileInput.files, sendMessages);
+        } else {
+            // 파일 첨부 x
+            sendMessageToThread(sendMessages);
         }
     }
 
@@ -463,8 +463,6 @@ function fetchAvatars() {
 
 // 영상 생성 (video)
 function generateVideo() {
-    console.log(lastMessage);
-
     var text = lastMessage;
     const options = {
         method: 'POST',
