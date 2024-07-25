@@ -8,9 +8,9 @@ var heygenApiKey = "";
 
 var assistantId= "asst_vsqugc622KXhJ08mscEkpct8";	// chat gpt assistantId
 var elevenVoiceId= 'isHvq7WnwQY2e8dQDwGR';			// eleven 대표님 목소리
-var heygenTalkingPhotoId= "9449d76afa034e9299d70aa03b7af3ff";	// heygen 에 등록되어있는 대표님 아바타id
+var heygenTalkingPhotoId= "53ecb76ecf68417388ff20875d18ae2f";	// heygen 에 등록되어있는 대표님 아바타id
 var heygenElevenVoiceId= "df393bed984b4a0a84466386b5ff8052";		// heygen 에서 eleven id 가져오기
-var heygenVideoId= "a965a60ddc654fe5a909cc39df48d255";			// 미리 만들어 놓은 영상
+var heygenVideoId= "09bdf85d75d64e4a96bd9d7314506beb";			// 미리 만들어 놓은 영상
 
 
 let fileIds;
@@ -607,7 +607,7 @@ function showGeneratedVideo(videoUrl) {
     });
 
     var length = $('.generated-video').length;
-    var html = '<video class="generated-video received_' + length + '" style="height: 559px;" controls autoPlay></video>';
+    var html = '<video class="generated-video received_' + length + '" style="height: 185px;" controls autoPlay></video>';
 
     $('#ceo_video').html(html);
     $('#ceo_video').show()
@@ -616,11 +616,9 @@ function showGeneratedVideo(videoUrl) {
 
     removeTypingIndicator();
     addMessage(lastMessage, 'received');
-    $('#ceo_img').hide();
 
     videoElement.src = videoUrl;
     videoElement.addEventListener('ended', function() {
-        $('#ceo_img').show();
         $('#ceo_video').hide();
     });
 }
