@@ -10,7 +10,7 @@ var assistantId= "asst_vsqugc622KXhJ08mscEkpct8";	// chat gpt assistantId
 var elevenVoiceId= 'isHvq7WnwQY2e8dQDwGR';			// eleven 대표님 목소리
 var heygenTalkingPhotoId= "53ecb76ecf68417388ff20875d18ae2f";	// heygen 에 등록되어있는 대표님 아바타id
 var heygenElevenVoiceId= "df393bed984b4a0a84466386b5ff8052";		// heygen 에서 eleven id 가져오기
-var heygenVideoId= "09bdf85d75d64e4a96bd9d7314506beb";			// 미리 만들어 놓은 영상
+var heygenVideoId= "0c7ce2f133ba412887b0586685fd160e";			// 미리 만들어 놓은 영상
 
 
 let fileIds;
