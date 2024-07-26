@@ -12,11 +12,12 @@
 
 <div class="main-container">
     <div class="left-container">
-        <div id="key" style="margin:10px">
-            <input type="text" class="api_key" id="api_key" style="text-align: left" placeholder="api key 를 입력해주세요"       value=""/>
-            <input type="text" class="api_key" id="eleven_key" style="text-align: left" placeholder="eleven key 를 입력해주세요" value=""/>
-            <input type="text" class="api_key" id="heygen_key" style="text-align: left" placeholder="heygen key 를 입력해주세요" value=""/>
-            <button id="api_key_btn" class="submit-button">입력</button>
+        <div id="key" style="margin:18px;">
+            <input type="text" class="api_key" id="api_key"    style="display:none;text-align: left" placeholder="api key 를 입력해주세요"       value=""/>
+            <input type="text" class="api_key" id="eleven_key" style="display:none;text-align: left" placeholder="eleven key 를 입력해주세요" value=""/>
+            <input type="text" class="api_key" id="heygen_key" style="display:none;text-align: left" placeholder="heygen key 를 입력해주세요" value=""/>
+            <button id="api_key_btn" class="submit-button" style="display:none;">입력</button>
+            <span>지니데이타 면접에 오신것을 환영합니다.</span>
         </div>
         <div class="position-wrapper">
             <div id="ceo_img" class="">
@@ -29,6 +30,7 @@
 
         <div class="chat-container" id="chat-container1">
             <div class="messages-wrapper left-messages-wrapper"> <!-- 추가된 메시지 래퍼 -->
+                <div class="typing-indicator-text" style="display:none;"></div>
             </div>
             <button id="play-video" class="play-button"><i class="fas fa-play"></i></button>
         </div>
@@ -39,7 +41,7 @@
             <button id="toggle-conversation" class="toggle-button" style="margin-left: 15px;">대화 내용 보기</button>
             <button id="toggle-theme" class="toggle-button">다크모드</button>
         </div>
-        <div class="chat-container hidden" id="chat-container" style="width:100%;">
+        <div class="chat-container" id="chat-container" style="width:100%;">
             <div class="messages-wrapper right-messages-wrapper"> <!-- 추가된 메시지 래퍼 -->
             </div>
         </div>

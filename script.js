@@ -58,7 +58,7 @@ $(document).ready(function() {
             $("#heygen_key").remove();
             $("#api_key_btn").remove();
 
-            $("#key").css("margin-top","48px");
+            // $("#key").css("margin-top","48px");
             createThread();
         }else{
             alert('api key 를 입력해주세요.');
@@ -182,6 +182,7 @@ function addTypingIndicator() {
     $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 
     $('.left-messages-wrapper').html(typingIndicator);
+    $('.left-messages-wrapper').append('<div class="typing-indicator-text" style="display:none;"></div>');
 }
 
 // 대화 입력중 모양 제거
@@ -382,14 +383,24 @@ function addMessage(text, type) {
     let messageElement = "";
     if(type=="received"){
         messageElement = $('<div style="display: none;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+
+        const messagesWrapper = document.querySelector(".left-messages-wrapper");
+        const typingIndicator = document.querySelector(".typing-indicator-text");
+
+        const messageElement_typing = document.createElement('div');
+        messageElement_typing.classList.add('message', type);
+        messageElement_typing.innerHTML = ''; // Initialize with an empty string
+
+        messagesWrapper.appendChild(messageElement_typing);
+        $(".left-messages-wrapper").children(".received").css("max-width", "100%");
+        typeText(messageElement_typing, text, typingIndicator, function() {
+        });
     }else{
         messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
     }
     $('.right-messages-wrapper').append(messageElement);
     $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 
-    let length = $(".message.received").length-1;
-    $(".left-messages-wrapper").html($(".message.received_" + length).html());
 }
 
 // 음성 출력 api(음성)
@@ -627,14 +638,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggleButton.addEventListener('click', () => {
         if (toggleButton.textContent == "대화 내용 보기") {
-            $(".message.received").each(function (){
+            $(".right-container").find(".message.received").each(function (){
                 if(!$(this).hasClass("typing-indicator")){
                     $(this).show();
                 }
             });
             toggleButton.textContent = '대화 내용 숨기기';
         } else {
-            $(".message.received").each(function (){
+            $(".right-container").find(".message.received").each(function (){
                 if(!$(this).hasClass("typing-indicator")){
                     $(this).hide();
                 }
@@ -643,3 +654,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function typeText(element, text, typingIndicator, callback) {
+    let index = 0;
+    text = text.trim();
+    element.innerHTML = '';
+
+    function type() {
+        if (index < text.length) {
+            element.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(type, 50);
+
+            const messagesWrapper = document.querySelector(".left-messages-wrapper");
+            messagesWrapper.scrollTop = messagesWrapper.scrollHeight; // Scroll to bottom
+        } else {
+            typingIndicator.style.display = 'none';
+            if (callback) callback();
+        }
+    }
+
+    typingIndicator.style.display = 'flex';
+    type();
+}
