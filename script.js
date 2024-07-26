@@ -100,8 +100,19 @@ $(document).ready(function() {
 
     // 영상으로 재생
     $("#play-video").on('click', function (){
+        // 음성 종료
+        $('.audio-output').each(function() {
+            this.pause();
+            this.currentTime = 0;
+        });
+
+        // 대화창 초기화
+        $('.left-messages-wrapper').html('<div class="typing-indicator-text" style="display:none;"></div>');
+
+        // 영상
         // generateVideo();
         getVideo();
+
     });
 });
 
@@ -440,12 +451,12 @@ function speakText() {
             $('.right-messages-wrapper').append(html);
             $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
             $('.audio-output.received.audio_' + length).attr('src', audioURL);
+            // $('.audio-output').hide();
 
             removeTypingIndicator(); // 타이핑 인디케이터 제거
             addMessage(lastMessage, 'received');
             // $(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
 
-            $('.audio-output').hide();
         },
         error: function(xhr, status, error) {
             console.error('Error:', error);
