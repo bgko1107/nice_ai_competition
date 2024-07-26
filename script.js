@@ -451,7 +451,7 @@ function speakText() {
             $('.right-messages-wrapper').append(html);
             $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
             $('.audio-output.received.audio_' + length).attr('src', audioURL);
-            // $('.audio-output').hide();
+            $('.audio-output').hide();
 
             removeTypingIndicator(); // 타이핑 인디케이터 제거
             addMessage(lastMessage, 'received');
