@@ -17,7 +17,9 @@
             <input type="text" class="api_key" id="eleven_key" style="display:none;text-align: left" placeholder="eleven key 를 입력해주세요" value=""/>
             <input type="text" class="api_key" id="heygen_key" style="display:none;text-align: left" placeholder="heygen key 를 입력해주세요" value=""/>
             <button id="api_key_btn" class="submit-button" style="display:none;">입력</button>
-            <span>지니데이타 면접에 오신것을 환영합니다.</span>
+            <div class="welcome-message">
+                NICE 지니데이타 면접에 <span>오신것을 환영합니다.</span>
+            </div>
         </div>
         <div class="position-wrapper">
             <div id="ceo_img" class="">
@@ -37,7 +39,7 @@
     </div>
 
     <div class="right-container">
-        <div id="mode_button" class="button-container" style="margin:10px;">
+        <div id="mode_button" class="button-container" style="margin:10px;margin-bottom: 22px;">
             <button id="toggle-conversation" class="toggle-button">대화 내용 보기</button>
             <button id="toggle-theme" class="toggle-button" style="margin-right: 15px;">다크모드</button>
         </div>
@@ -49,10 +51,10 @@
         <div id="file-names" class="file-names" style="display: none;"></div> <!-- 추가된 파일 이름 표시 영역 -->
 
         <div class="input-container">
-            <label id="file-label" for="file-input"><i class="fas fa-paperclip"></i></label>
+            <label id="file-label" for="file-input"><i class="fas fa-folder"></i></label>
             <input type="text" id="message-input" placeholder="입력해주세요.">
             <input type="file" id="file-input" multiple>
-            <button id="send">보내기</button>
+            <button id="send"><i class="fas fa-paper-plane" style="font-size: 19px;"></i></button>
         </div>
     </div>
 </div>

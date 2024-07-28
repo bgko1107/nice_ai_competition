@@ -13,7 +13,7 @@ body {
 }
 
 body.light-mode {
-	background-color: #ecf0f1; /* Light background */
+	background-color: #FFF3C8;
 	color: #2c3e50; /* Dark text */
 }
 
@@ -84,7 +84,7 @@ body.dark-mode {
 	justify-content: flex-end;
 	padding: 20px;
 	box-sizing: border-box;
-	background: #ffffff;
+	background: #FFFAE7;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 	border-radius: 12px;
 	height: calc(100vh - 160px);
@@ -119,9 +119,9 @@ body.dark-mode {
 }
 
 .message.sent {
-	background-color: #007aff;
+	background-color: #FED114;
 	align-self: flex-end;
-	color: #ffffff;
+	color: #000000;
 }
 
 .message.received {
@@ -131,7 +131,7 @@ body.dark-mode {
 }
 
 body.light-mode .chat-container {
-	background: #ffffff;
+	background: #FFFAE7;
 }
 
 body.dark-mode .message.received {
@@ -140,11 +140,10 @@ body.dark-mode .message.received {
 }
 
 body.light-mode #chat-container1 {
-	background: #ffffff;
+	background: #FFFAE7;
 }
 
 body.dark-mode #chat-container1 {
-	background-color: #34495e;
 	color: #ecf0f1;
 }
 
@@ -153,7 +152,7 @@ body.dark-mode #chat-container1 {
 	display: flex;
 	align-items: center;
 	padding: 20px;
-	background-color: #ffffff;
+	background-color: #FFFAE7;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 	border-radius: 12px;
 	transition: background-color 0.3s, border-color 0.3s;
@@ -200,12 +199,12 @@ body.dark-mode .input-container input[type="text"] {
 }
 
 .input-container button {
-	padding: 10px 20px;
-	background-color: #007bff;
+	padding: 10px 13px;
+	background-color: #000000;
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
@@ -219,7 +218,7 @@ body.dark-mode .input-container input[type="text"] {
 	background-color: #007bff;
 	border-radius: 50%;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	margin-right: 10px;
 	transition: background-color 0.3s;
 }
@@ -239,7 +238,7 @@ body.dark-mode .input-container input[type="text"] {
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	font-size: 20px;
 	display: flex;
 	align-items: center;
@@ -371,7 +370,7 @@ body.dark-mode .file-name {
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
@@ -383,7 +382,7 @@ body.dark-mode .file-name {
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
@@ -405,7 +404,7 @@ body.dark-mode .file-name {
 	border: none;
 	border-radius: 12px;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
@@ -425,7 +424,7 @@ body.dark-mode .file-name {
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
@@ -477,7 +476,7 @@ body.dark-mode .file-name {
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFAE7;
 	margin-right: 10px;
 	transition: background-color 0.3s, color 0.3s;
 	width:36px;
@@ -494,4 +493,14 @@ body.dark-mode .file-name {
 
 .width100 {
 	max-width:100%;
+}
+
+.welcome-message {
+	font-family: Arial, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	color: #000000;
+}
+.welcome-message span {
+	color: #a0a0a0; /* Adjust the color to match the image */
 }
