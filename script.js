@@ -368,7 +368,7 @@ function messageList() {
             var message = response.data[0];
             if (message.role === "assistant") {
                 if (message.content[0].type === "text") {
-                    lastMessage = message.content[0].text.value;
+                    lastMessage = message.content[0].text.value.replaceAll("*","");
                     speakText();
                 }
             }
