@@ -109,6 +109,9 @@ $(document).ready(function() {
         // 대화창 초기화
         $('.left-messages-wrapper').html('<div class="typing-indicator-text" style="display:none;"></div>');
 
+        // 로딩바
+        $("#loading-spinner").show();
+        $("#modal-overlay").show();
         // 영상
         // generateVideo();
 
@@ -414,6 +417,19 @@ function addMessage(text, type) {
     $('.right-messages-wrapper').append(messageElement);
     $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
 
+    if($("#toggle-conversation").text() != "대화 내용 보기"){
+        $(".right-container").find(".message.received").each(function (){
+            if(!$(this).hasClass("typing-indicator")){
+                $(this).show();
+            }
+        });
+    }else{
+        $(".right-container").find(".message.received").each(function (){
+            if(!$(this).hasClass("typing-indicator")){
+                $(this).hide();
+            }
+        });
+    }
 }
 
 // 음성 출력 api(음성)
@@ -487,9 +503,6 @@ function fetchAvatars() {
 
 // 영상 생성 (video)
 function generateVideo() {
-    $("#loading-spinner").show();
-    $("#modal-overlay").show();
-
     var text = lastMessage;
 
     const options = {
@@ -529,7 +542,8 @@ function generateVideo() {
                         value: '#f6f6fc'
                     }
                 }
-            ]
+            ],
+            remove_watermark: true // 워터마크 제거 옵션
         })
     };
 
@@ -542,7 +556,7 @@ function generateVideo() {
 
         success: function(response) {
             if (response.data.video_id) {
-                // 새로만든 videoId
+                // 새로 만든 videoId
                 heygenVideoId = response.data.video_id;
                 checkVideoStatus(heygenVideoId);
             } else {

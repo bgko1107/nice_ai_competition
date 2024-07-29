@@ -56,7 +56,7 @@ body.dark-mode {
 
 
 #ceo_img, #ceo_video {
-	height: 559px;
+	height: 476px;
 	margin-bottom: 20px;
 	text-align: center; /* Center align image */
 }
@@ -65,7 +65,7 @@ body.dark-mode {
 	height: 100%;
 	width: 100%; /* Maintain aspect ratio */
 	max-width:880px;
-	max-height:541px;
+	max-height:476px;
 
 }
 
@@ -460,8 +460,8 @@ body.dark-mode .file-name {
 
 .position-element {
 	position: absolute;
-	top: 24.8%;
-	left: 48.5%;
+	top: 22.7%;
+	left: 48.2%;
 	transform: translate(-50%, -50%);
 	width: 100%;
 	height: 100%;
