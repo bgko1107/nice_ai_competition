@@ -110,8 +110,8 @@ $(document).ready(function() {
         $('.left-messages-wrapper').html('<div class="typing-indicator-text" style="display:none;"></div>');
 
         // 영상
-        // generateVideo();
-        getVideo();
+        generateVideo();
+        // getVideo();
 
     });
 });
