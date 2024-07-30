@@ -10,12 +10,13 @@ var assistantId= "asst_vsqugc622KXhJ08mscEkpct8";	// chat gpt assistantId
 var elevenVoiceId= 'isHvq7WnwQY2e8dQDwGR';			// eleven 대표님 목소리
 var heygenTalkingPhotoId= "53ecb76ecf68417388ff20875d18ae2f";	// heygen 에 등록되어있는 대표님 아바타id
 var heygenElevenVoiceId= "df393bed984b4a0a84466386b5ff8052";		// heygen 에서 eleven id 가져오기
-var heygenVideoId= "0c7ce2f133ba412887b0586685fd160e";			// 미리 만들어 놓은 영상
+var heygenVideoId= "58a61d3c29fa49548ecf1577d58b1d6a";			// 미리 만들어 놓은 영상
 
 
 let fileIds;
 
 let sendMessages ="";
+let beforeSendMessages ="";
 
 $(document).ready(function() {
     alert('api key 입력해주세요');
@@ -106,18 +107,19 @@ $(document).ready(function() {
             this.currentTime = 0;
         });
 
-        // 대화창 초기화
-        $('.left-messages-wrapper').html('<div class="typing-indicator-text" style="display:none;"></div>');
-
         // 로딩바
         $("#loading-spinner").show();
         $("#modal-overlay").show();
         // 영상
-        // generateVideo();
+        $(this).hide();     // 영상 재생버튼
 
-        $(this).hide();
-        getVideo();
-
+        if(beforeSendMessages == lastMessage){
+            console.log("만들어져있는 영상 가져오기");
+            getVideo();
+        }else{
+            console.log("새로만들기 가져오기");
+            generateVideo();
+        }
     });
 });
 
@@ -373,7 +375,7 @@ function messageList() {
             var message = response.data[0];
             if (message.role === "assistant") {
                 if (message.content[0].type === "text") {
-                    lastMessage = message.content[0].text.value.replaceAll("*","");
+                    lastMessage = message.content[0].text.value.replaceAll("*","").replaceAll("#","");
                     speakText();
                 }
             }
@@ -504,6 +506,7 @@ function fetchAvatars() {
 // 영상 생성 (video)
 function generateVideo() {
     var text = lastMessage;
+    beforeSendMessages = lastMessage;
 
     const options = {
         method: 'POST',
