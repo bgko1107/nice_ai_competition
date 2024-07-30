@@ -572,9 +572,9 @@ body.dark-mode .file-name {
 
 .overlay-logo {
 	position: absolute;
-	top: 10px; /* Adjust as necessary */
-	left: 10px; /* Adjust as necessary */
-	width: 80px; /* Adjust as necessary */
+	top: 22.7%;
+	left: 48.2%;
+	width: 80px;
 	height: auto;
-	z-index: 1; /* Ensure it is on top */
+	z-index: 1;
 }
