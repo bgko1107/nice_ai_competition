@@ -50,8 +50,9 @@ body.dark-mode {
 	width: 52%;
 	display: flex;
 	flex-direction: column;
-	padding: 31px;
+	padding: 14px;
 	box-sizing: border-box;
+	padding-bottom: 20px;
 }
 
 
@@ -565,4 +566,15 @@ body.dark-mode .file-name {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	display: none;
+}
+
+
+
+.overlay-logo {
+	position: absolute;
+	top: 10px; /* Adjust as necessary */
+	left: 10px; /* Adjust as necessary */
+	width: 80px; /* Adjust as necessary */
+	height: auto;
+	z-index: 1; /* Ensure it is on top */
 }
