@@ -798,7 +798,7 @@ function getVideo() {
     });
 }
 
-// 메시지 창에 영상 출력
+// 영상 출력
 function showGeneratedVideo(videoUrl) {
     $('.generated-video').each(function() {
         this.pause();
