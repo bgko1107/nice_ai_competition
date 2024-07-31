@@ -17,13 +17,13 @@
             <input type="text" class="api_key" id="eleven_key" style="display:none;text-align: left" placeholder="eleven key 를 입력해주세요" value=""/>
             <input type="text" class="api_key" id="heygen_key" style="display:none;text-align: left" placeholder="heygen key 를 입력해주세요" value=""/>
             <button id="api_key_btn" class="submit-button" style="display:none;">입력</button>
-            <div class="welcome-message" style="display: flex; align-items: center;">
-                <span style="font-size: 21px;"><span style="color: #3e3e3e;">NICE지니데이타</span> 면접에 오신것을 환영합니다.</span>
+            <div class="welcome-message" style="display: flex; align-items: center;height: 28px;">
+                <img class="" id="banner" src="참고자료/배너.gif" alt="" style="width: 528px;">
             </div>
         </div>
         <div class="position-wrapper">
             <div id="ceo_img" class="">
-                <img class="overlay-logo" id="logo" src="참고자료/new_nice_logo.svg" alt="logo Image" style="width: 25px;height: 25px;background-color: #FFFFFF;border-radius: 50%;">
+                <img class="overlay-logo" id="logo" src="참고자료/new_nice_logo.svg" alt="logo Image" style="width: 50px;height: 50px;">
                 <img id="image" src="참고자료/대표님%20사진.png" alt="CEO Image" style="border-radius: 12px;">
                 <div class="loading-spinner" id="loading-spinner" style="z-index: 999;"></div>
                 <div class="modal-overlay" id="modal-overlay" style="height: 476px;border-radius: 12px;z-index: 998;"></div>
@@ -43,6 +43,7 @@
 
     <div class="right-container">
         <div id="mode_button" class="button-container" style="margin-bottom:32px;">
+            <button id="new_thread" class="toggle-button">새로운 대화</button>
             <button id="toggle-conversation" class="toggle-button">대화 내용 보기</button>
             <button id="toggle-theme" class="toggle-button" style="margin-right: 15px;">다크모드</button>
         </div>

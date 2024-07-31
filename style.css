@@ -1,11 +1,31 @@
+@font-face {
+	font-family: 'CustomFont';
+	src: url('참고자료/NICEGtNeobUniTTF-cRg.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
-	font-family: 'Arial', sans-serif;
+	font-family: 'CustomFont';
 	margin: 0;
 	padding: 0;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
 	transition: background-color 0.3s, color 0.3s;
+}
+
+
+html{
+	font-family: 'CustomFont';
+}
+
+body{
+	font-family: 'CustomFont';
+}
+
+button{
+	font-family: 'CustomFont';
 }
 
 .hidden {
@@ -116,7 +136,7 @@ body.dark-mode {
 	word-wrap: break-word;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 	position: relative;
-	font-size: 16px;
+	font-size: 17px;
 }
 
 .message.sent {
@@ -431,6 +451,10 @@ body.dark-mode .file-name {
 	transition: background-color 0.3s, color 0.3s;
 }
 
+#new_thread {
+	margin-right: auto; /* Align to the left */
+}
+
 #toggle-conversation {
 	margin-right: auto; /* Align to the left */
 }
@@ -498,7 +522,7 @@ body.dark-mode .file-name {
 }
 
 .welcome-message {
-	font-family: Arial, sans-serif;
+	font-family: 'CustomFont';
 	font-size: 24px;
 	font-weight: bold;
 	color: #000000;
@@ -570,8 +594,8 @@ body.dark-mode .file-name {
 
 .overlay-logo {
 	position: absolute;
-	top: 39.7%;
-	left: 53.2%;
+	top: 10px;
+	left: 10px;
 	width: 80px;
 	height: auto;
 	z-index: 1;

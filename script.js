@@ -10,7 +10,7 @@ var assistantId= "asst_vsqugc622KXhJ08mscEkpct8";	// chat gpt assistantId
 var elevenVoiceId= 'isHvq7WnwQY2e8dQDwGR';			// eleven 대표님 목소리
 var heygenTalkingPhotoId= "53ecb76ecf68417388ff20875d18ae2f";	// heygen 에 등록되어있는 대표님 아바타id
 var heygenElevenVoiceId= "df393bed984b4a0a84466386b5ff8052";		// heygen 에서 eleven id 가져오기
-var heygenVideoId= "58a61d3c29fa49548ecf1577d58b1d6a";			// 미리 만들어 놓은 영상
+var heygenVideoId= "6b038331134e4814bef325c3750d59c5";			// 미리 만들어 놓은 영상
 
 
 let fileIds;
@@ -20,6 +20,9 @@ let beforeSendMessages ="";
 
 $(document).ready(function() {
     alert('api key 입력해주세요');
+
+    threadId = sessionStorage.getItem("threadId");
+
     /*const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
 
     $.get(keyFileUrl, function(data) {
@@ -60,7 +63,12 @@ $(document).ready(function() {
             $("#api_key_btn").remove();
 
             // $("#key").css("margin-top","48px");
-            createThread();
+
+            if(threadId == "" || threadId == null){
+                createThread();
+            }else{
+                beforeMessageList();
+            }
         }else{
             alert('api key 를 입력해주세요.');
         }
@@ -119,6 +127,26 @@ $(document).ready(function() {
         }else{
             console.log("새로만들기 가져오기");
             generateVideo();
+        }
+    });
+
+    $("#new_thread").on('click', function (){
+        if(confirm("새로운 대화를 하시겠습니까?")){
+            createThread();
+            // 메시지 삭제
+            $(".message").remove();
+
+            // 오디오 정지
+            $('.audio-output').each(function() {
+                this.pause();
+                this.currentTime = 0;
+            });
+
+            // 비디오 정지
+            $('.generated-video').each(function() {
+                this.pause();
+                this.currentTime = 0;
+            });
         }
     });
 });
@@ -221,6 +249,7 @@ function createThread() {
         data: '{}',
         success: function(response) {
             threadId = response.id;
+            sessionStorage.setItem("threadId", threadId);
         },
         error: function(xhr, status, error) {
             console.error("Error creating thread:", error);
@@ -386,6 +415,86 @@ function messageList() {
     });
 }
 
+// 전에 가지고 있던 메시지 목록 가져오기
+function beforeMessageList() {
+    var url = "https://api.openai.com/v1/threads/" + threadId + "/messages";
+    $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + apiKey,
+            'OpenAI-Beta': 'assistants=v2'
+        },
+        success: function(response) {
+            if(response.data.length > 0){
+                for (let i = response.data.length - 1; i >= 0; i--) {
+                    var message = response.data[i];
+                    let lastMessage = message.content[0].text.value.replaceAll("*", "").replaceAll("#", "");
+
+                    if (message.role === "assistant") {
+                        beforeAddMessage(lastMessage, 'received');
+                    } else {
+                        beforeAddMessage(lastMessage, 'sent');
+                    }
+                }
+
+                // 마지막 메시지만 출력하기
+                var message = response.data[0];
+                if (message.role === "assistant") {
+                    if (message.content[0].type === "text") {
+                        lastMessage = message.content[0].text.value.replaceAll("*","").replaceAll("#","");
+
+                        const messagesWrapper = document.querySelector(".left-messages-wrapper");
+                        const typingIndicator = document.querySelector(".typing-indicator-text");
+
+                        const messageElement_typing = document.createElement('div');
+                        messageElement_typing.classList.add('message', 'received');
+                        messageElement_typing.innerHTML = ''; // Initialize with an empty string
+
+                        messagesWrapper.appendChild(messageElement_typing);
+                        $(".left-messages-wrapper").children(".received").css("max-width", "100%");
+                        typeText(messageElement_typing, lastMessage, typingIndicator, function() {
+                        });
+                    }
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching messages:", error);
+        }
+    });
+}
+
+// 받아온 메시지 출력 (text)
+function beforeAddMessage(text, type) {
+
+    let message = replaceTag(text);
+    let messageElement = "";
+    if(type=="received"){
+        messageElement = $('<div style="display: none;"></div>').addClass('message').addClass(type).addClass(type + "_"+$(".message.received").length).html(message);
+    }else{
+        messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
+    }
+    $('.right-messages-wrapper').append(messageElement);
+    $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
+
+    if($("#toggle-conversation").text() != "대화 내용 보기"){
+        $(".right-container").find(".message.received").each(function (){
+            if(!$(this).hasClass("typing-indicator")){
+                $(this).show();
+            }
+        });
+    }else{
+        $(".right-container").find(".message.received").each(function (){
+            if(!$(this).hasClass("typing-indicator")){
+                $(this).hide();
+            }
+        });
+    }
+}
+
+
 // 엔터 테그로 변경 ( 내용 보기 예쁘게 하기 위함 )
 function replaceTag(text){
     text = text.replace(/\r\n/g, '<br/>');
@@ -435,7 +544,7 @@ function addMessage(text, type) {
 }
 
 // 음성 출력 api(음성)
-function speakText() {
+function speakText(add) {
 
     var text = lastMessage;
 
@@ -475,7 +584,6 @@ function speakText() {
 
             removeTypingIndicator(); // 타이핑 인디케이터 제거
             addMessage(lastMessage, 'received');
-            // $(".message.received").css("width", "").css("max-width", "70%").css("height", "").css("min-height", "").css("overflow-y", "");
 
         },
         error: function(xhr, status, error) {
@@ -563,11 +671,19 @@ function generateVideo() {
                 heygenVideoId = response.data.video_id;
                 checkVideoStatus(heygenVideoId);
             } else {
-                alert('Video generation failed.');
+                // 비디오 에러 발생시
+                heygenVideoId = "6b038331134e4814bef325c3750d59c5";
+                getVideo();
             }
         },
         error: function(err) {
             console.error('Error:', err);
+
+            // 비디오 생성 수 초과 했을때
+            if(err.indexOf("limit") > -1){
+                heygenVideoId = "6b038331134e4814bef325c3750d59c5";
+                getVideo();
+            }
         }
     });
 }
@@ -597,6 +713,7 @@ function checkVideoStatus(videoId) {
             }
         } catch (err) {
             console.error('Error checking video status:', err);
+
         }
     };
 
@@ -625,11 +742,19 @@ function getVideo() {
             if (response.code === 100 && response.data.status === 'completed') {
                 showGeneratedVideo(response.data.video_url);
             } else {
-                alert('Video generation is not completed yet.');
+                // 비디오 에러 발생시
+                heygenVideoId = "6b038331134e4814bef325c3750d59c5";
+                getVideo();
             }
         },
         error: function(err) {
             console.error(err);
+
+            // 비디오 생성 수 초과 했을때
+            if(err.indexOf("limit") > -1){
+                heygenVideoId = "6b038331134e4814bef325c3750d59c5";
+                getVideo();
+            }
         }
     });
 }
