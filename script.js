@@ -19,9 +19,28 @@ let sendMessages ="";
 let beforeSendMessages ="";
 
 $(document).ready(function() {
-    alert('api key 입력해주세요');
-
+    apiKey = sessionStorage.getItem("apiKey");
+    elevenApiKey = sessionStorage.getItem("elevenApiKey");
+    heygenApiKey = sessionStorage.getItem("heygenApiKey");
     threadId = sessionStorage.getItem("threadId");
+
+    if(apiKey == "" || apiKey == null
+        || elevenApiKey == "" || elevenApiKey == null
+        || heygenApiKey == "" || heygenApiKey == null
+    ){
+        alert('api key 입력해주세요');
+    }else{
+        apiKey = sessionStorage.getItem("apiKey");
+        elevenApiKey = sessionStorage.getItem("elevenApiKey");
+        heygenApiKey = sessionStorage.getItem("heygenApiKey");
+        if(threadId == "" || threadId == null){
+            createThread();
+        }else{
+            beforeMessageList();
+        }
+    }
+
+
 
     /*const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
 
@@ -57,13 +76,16 @@ $(document).ready(function() {
             elevenApiKey = $("#eleven_key").val();
             heygenApiKey = $("#heygen_key").val();
 
+            sessionStorage.setItem("apiKey", apiKey);
+            sessionStorage.setItem("elevenApiKey", elevenApiKey);
+            sessionStorage.setItem("heygenApiKey", heygenApiKey);
+
             $("#api_key").remove();
             $("#eleven_key").remove();
             $("#heygen_key").remove();
             $("#api_key_btn").remove();
 
             // $("#key").css("margin-top","48px");
-
             if(threadId == "" || threadId == null){
                 createThread();
             }else{
@@ -121,7 +143,8 @@ $(document).ready(function() {
         // 영상
         $(this).hide();     // 영상 재생버튼
 
-        if(beforeSendMessages == lastMessage){
+        if(sessionStorage.getItem("heygenVideoId") !='' && sessionStorage.getItem("heygenVideoId") != null){
+            heygenVideoId = sessionStorage.getItem("heygenVideoId");
             console.log("만들어져있는 영상 가져오기");
             getVideo();
         }else{
@@ -457,9 +480,10 @@ function beforeMessageList() {
                         messagesWrapper.appendChild(messageElement_typing);
                         $(".left-messages-wrapper").children(".received").css("max-width", "100%");
                         typeText(messageElement_typing, lastMessage, typingIndicator, function() {
-                        });
+                        }, 0);
                     }
                 }
+                beforeSendMessages = lastMessage;
             }
         },
         error: function(xhr, status, error) {
@@ -523,7 +547,7 @@ function addMessage(text, type) {
         messagesWrapper.appendChild(messageElement_typing);
         $(".left-messages-wrapper").children(".received").css("max-width", "100%");
         typeText(messageElement_typing, text, typingIndicator, function() {
-        });
+        }, 50);
     }else{
         messageElement = $('<div></div>').addClass('message').addClass(type).html(message);
     }
@@ -671,6 +695,7 @@ function generateVideo() {
             if (response.data.video_id) {
                 // 새로 만든 videoId
                 heygenVideoId = response.data.video_id;
+                sessionStorage.setItem("heygenVideoId", heygenVideoId);
                 checkVideoStatus(heygenVideoId);
             } else {
                 // 비디오 에러 발생시
@@ -805,7 +830,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function typeText(element, text, typingIndicator, callback) {
+function typeText(element, text, typingIndicator, callback, time) {
     let index = 0;
     text = text.trim();
     element.innerHTML = '';
@@ -814,7 +839,7 @@ function typeText(element, text, typingIndicator, callback) {
         if (index < text.length) {
             element.innerHTML += text.charAt(index);
             index++;
-            setTimeout(type, 50);
+            setTimeout(type, time);
 
             const messagesWrapper = document.querySelector(".left-messages-wrapper");
             messagesWrapper.scrollTop = messagesWrapper.scrollHeight; // Scroll to bottom
