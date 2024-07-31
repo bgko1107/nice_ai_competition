@@ -143,14 +143,6 @@ $(document).ready(function() {
         // 영상
         $(this).hide();     // 영상 재생버튼
 
-        if(beforeSendMessages == lastMessage){
-            console.log("만들어져있는 영상 가져오기");
-            getVideo();
-        }else{
-            console.log("새로만들기 가져오기");
-            generateVideo();
-        }
-
         if(sessionStorage.getItem("heygenVideoId") !='' && sessionStorage.getItem("heygenVideoId") != null){
             // 만들어져 있는 영상이 있으면서 + 대화내용이 변경되지 않았을 경우
             if(beforeSendMessages == lastMessage){
