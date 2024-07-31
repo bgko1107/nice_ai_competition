@@ -680,10 +680,8 @@ function generateVideo() {
             console.error('Error:', err);
 
             // 비디오 생성 수 초과 했을때
-            if(err.indexOf("limit") > -1){
-                heygenVideoId = "6b038331134e4814bef325c3750d59c5";
-                getVideo();
-            }
+            heygenVideoId = "6b038331134e4814bef325c3750d59c5";
+            getVideo();
         }
     });
 }
@@ -749,12 +747,9 @@ function getVideo() {
         },
         error: function(err) {
             console.error(err);
-
             // 비디오 생성 수 초과 했을때
-            if(err.indexOf("limit") > -1){
-                heygenVideoId = "6b038331134e4814bef325c3750d59c5";
-                getVideo();
-            }
+            heygenVideoId = "6b038331134e4814bef325c3750d59c5";
+            getVideo();
         }
     });
 }
