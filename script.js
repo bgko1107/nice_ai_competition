@@ -405,6 +405,7 @@ function messageList() {
             if (message.role === "assistant") {
                 if (message.content[0].type === "text") {
                     lastMessage = message.content[0].text.value.replaceAll("*","").replaceAll("#","");
+                    lastMessage = removeBracketsContent(lastMessage);
                     speakText();
                 }
             }
@@ -430,8 +431,8 @@ function beforeMessageList() {
             if(response.data.length > 0){
                 for (let i = response.data.length - 1; i >= 0; i--) {
                     var message = response.data[i];
-                    let lastMessage = message.content[0].text.value.replaceAll("*", "").replaceAll("#", "");
-
+                    lastMessage = message.content[0].text.value.replaceAll("*", "").replaceAll("#", "");
+                    lastMessage = removeBracketsContent(lastMessage);
                     if (message.role === "assistant") {
                         beforeAddMessage(lastMessage, 'received');
                     } else {
@@ -444,6 +445,7 @@ function beforeMessageList() {
                 if (message.role === "assistant") {
                     if (message.content[0].type === "text") {
                         lastMessage = message.content[0].text.value.replaceAll("*","").replaceAll("#","");
+                        lastMessage = removeBracketsContent(lastMessage);
 
                         const messagesWrapper = document.querySelector(".left-messages-wrapper");
                         const typingIndicator = document.querySelector(".typing-indicator-text");
@@ -824,4 +826,10 @@ function typeText(element, text, typingIndicator, callback) {
 
     typingIndicator.style.display = 'flex';
     type();
+}
+
+
+// 해당 문자열 내에 있는 내용 전부 삭제
+function removeBracketsContent(text) {
+    return text.replace(/【[^】]*】/g, '');
 }
