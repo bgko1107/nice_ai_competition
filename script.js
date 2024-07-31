@@ -152,12 +152,23 @@ $(document).ready(function() {
             }else{
                 // 만들어져 있는 영상이 있지만 마지막 메시지가 다르면 해당 메시지로 다시 영상 만들기
                 console.log("새로만들기 가져오기");
-                generateVideo();
+                if(lastMessage.length > 150){
+                    if(confirm("내용이 100자 이상입니다.\n영상 출력 시간이 오래 걸릴 수 있습니다.\n영상을 출력 하시겠습니까?")){
+                        generateVideo();
+                    }
+                }else{
+                    generateVideo();
+                }
             }
         }else{
             // 이전에 만든 영상이 없는 경우
-            console.log("새로만들기 가져오기");
-            generateVideo();
+            if(lastMessage.length > 150){
+                if(confirm("내용이 100자 이상입니다.\n영상 출력 시간이 오래 걸릴 수 있습니다.\n영상을 출력 하시겠습니까?")){
+                    generateVideo();
+                }
+            }else{
+                generateVideo();
+            }
         }
     });
 
