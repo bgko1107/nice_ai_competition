@@ -223,7 +223,7 @@ body.dark-mode .input-container input[type="text"] {
 	padding: 10px 13px;
 	background-color: #000000;
 	border: none;
-	border-radius: 25px;
+	border-radius: 15px;
 	cursor: pointer;
 	color: #fffefb;
 	font-weight: bold;
@@ -237,7 +237,7 @@ body.dark-mode .input-container input[type="text"] {
 	justify-content: center;
 	padding: 10px;
 	background-color: #007bff;
-	border-radius: 50%;
+	border-radius: 15px;
 	cursor: pointer;
 	color: #fffefb;
 	margin-right: 10px;
@@ -443,7 +443,7 @@ body.dark-mode .file-name {
 	padding: 10px 20px;
 	background-color: #000000;
 	border: none;
-	border-radius: 25px;
+	border-radius: 15px;
 	cursor: pointer;
 	color: #fffefb;
 	font-weight: bold;
@@ -609,25 +609,4 @@ body.dark-mode .file-name {
 	width: 80px;
 	height: auto;
 	z-index: 1;
-}
-
-/*#new_thread {
-	background-color: #0081ff;
-	text-align: left;
-	margin-right: 20px; !* Space between button and image *!
-	border: none;
-	border-radius: 25px;
-	cursor: pointer;
-	color: #fffefb;
-	font-weight: bold;
-	outline: none;
-	transition: background-color 0.3s, color 0.3s;
-}*/
-
-#new_thread {
-	background-color: #000000;
-	border-radius: 9px;
-	color: white;
-	cursor: pointer;
-	margin-top: 6px;
 }

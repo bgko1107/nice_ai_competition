@@ -130,7 +130,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#new_thread").on('click', function (){
+    $("#new_thread_container").on('click', function (){
         if(confirm("새로운 대화를 하시겠습니까?")){
             createThread();
             // 메시지 삭제
