@@ -40,8 +40,6 @@ $(document).ready(function() {
         }
     }
 
-
-
     /*const keyFileUrl = 'https://bgko1107.github.io/nice_ai_competition/key';
 
     $.get(keyFileUrl, function(data) {
