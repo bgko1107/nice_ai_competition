@@ -846,7 +846,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             toggleButton.textContent = '대화 내용 보기';
         }
+        $('.right-messages-wrapper').scrollTop($('.right-messages-wrapper')[0].scrollHeight);
     });
+
 });
 
 function typeText(element, text, typingIndicator, callback, time) {
