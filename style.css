@@ -441,7 +441,7 @@ body.dark-mode .file-name {
 
 .toggle-button {
 	padding: 10px 20px;
-	background-color: #2c3e50;
+	background-color: #000000;
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
@@ -449,10 +449,18 @@ body.dark-mode .file-name {
 	font-weight: bold;
 	outline: none;
 	transition: background-color 0.3s, color 0.3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
 }
 
-#new_thread {
-	margin-right: auto; /* Align to the left */
+.toggle-button i {
+	font-size: 20px;
+}
+
+.toggle-button:hover {
+	background-color: #1a252f;
 }
 
 #toggle-conversation {
@@ -522,10 +530,12 @@ body.dark-mode .file-name {
 }
 
 .welcome-message {
-	font-family: 'CustomFont';
 	font-size: 24px;
 	font-weight: bold;
 	color: #000000;
+	display: flex;
+	align-items: center;
+	height: 28px;
 }
 .welcome-message span {
 	color: #a0a0a0; /* Adjust the color to match the image */
@@ -599,4 +609,25 @@ body.dark-mode .file-name {
 	width: 80px;
 	height: auto;
 	z-index: 1;
+}
+
+/*#new_thread {
+	background-color: #0081ff;
+	text-align: left;
+	margin-right: 20px; !* Space between button and image *!
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	color: #fffefb;
+	font-weight: bold;
+	outline: none;
+	transition: background-color 0.3s, color 0.3s;
+}*/
+
+#new_thread {
+	background-color: #000000;
+	border-radius: 9px;
+	color: white;
+	cursor: pointer;
+	margin-top: 6px;
 }
