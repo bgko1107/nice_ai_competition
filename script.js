@@ -8,7 +8,7 @@ var heygenApiKey = "";
 
 var assistantId= "asst_vsqugc622KXhJ08mscEkpct8";	// chat gpt assistantId
 var elevenVoiceId= 'isHvq7WnwQY2e8dQDwGR';			// eleven 대표님 목소리
-var heygenTalkingPhotoId= "53ecb76ecf68417388ff20875d18ae2f";	// heygen 에 등록되어있는 대표님 아바타id
+var heygenTalkingPhotoId= "a66bcdb73f654b44bee686f9ffc58ab0";	// heygen 에 등록되어있는 대표님 아바타id
 var heygenElevenVoiceId= "df393bed984b4a0a84466386b5ff8052";		// heygen 에서 eleven id 가져오기
 var heygenVideoId= "6b038331134e4814bef325c3750d59c5";			// 미리 만들어 놓은 영상
 
