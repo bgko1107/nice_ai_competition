@@ -153,6 +153,9 @@ $(document).ready(function() {
                 if(lastMessage.length > 150){
                     if(confirm("내용이 100자 이상입니다.\n영상 출력 시간이 오래 걸릴 수 있습니다.\n영상을 출력 하시겠습니까?")){
                         generateVideo();
+                    }else{
+                        $("#loading-spinner").hide();
+                        $("#modal-overlay").hide();
                     }
                 }else{
                     generateVideo();
@@ -163,6 +166,9 @@ $(document).ready(function() {
             if(lastMessage.length > 150){
                 if(confirm("내용이 100자 이상입니다.\n영상 출력 시간이 오래 걸릴 수 있습니다.\n영상을 출력 하시겠습니까?")){
                     generateVideo();
+                }else{
+                    $("#loading-spinner").hide();
+                    $("#modal-overlay").hide();
                 }
             }else{
                 generateVideo();
@@ -617,6 +623,12 @@ function speakText(add) {
                 this.currentTime = 0;
             });
 
+            // 실행 중인 비디오 요소 정지
+            $('.generated-video').each(function() {
+                this.pause();
+                this.currentTime = 0;
+            });
+
             var audioURL = URL.createObjectURL(response);
             var length = $('.audio-output.received').length;
             var html = '<audio class="audio-output received audio_' + length + '" controls autoplay></audio>';
@@ -800,11 +812,17 @@ function getVideo() {
 
 // 영상 출력
 function showGeneratedVideo(videoUrl) {
-    $('.generated-video').each(function() {
+    // 실행 중인 오디오 요소 정지
+    $('.audio-output').each(function() {
         this.pause();
         this.currentTime = 0;
     });
 
+    // 실행 중인 비디오 요소 정지
+    $('.generated-video').each(function() {
+        this.pause();
+        this.currentTime = 0;
+    });
 
     $("#loading-spinner").hide();
     $("#modal-overlay").hide();
